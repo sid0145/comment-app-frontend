@@ -1,0 +1,58 @@
+<mat-card>
+  <form *ngIf="!isLoading" (submit)="onSignup(f)" #f="ngForm">
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="enter a username"
+        autocomplete="off"
+        name="username"
+        ngModel
+        #inputUser="ngModel"
+        username
+        required
+        minlength="3"
+      />
+      <mat-error *ngIf="inputUser.invalid">
+        Please enter a valid username
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="enter a email"
+        autocomplete="off"
+        name="email"
+        ngModel
+        #inputEmail="ngModel"
+        email
+        required
+      />
+      <mat-error *ngIf="inputEmail.invalid">
+        Please enter a valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        type="password"
+        matInput
+        placeholder="enter your password"
+        autocomplete="off"
+        name="password"
+        ngModel
+        #inputPassword="ngModel"
+        required
+        minlength="4"
+      />
+      <mat-error *ngIf="inputPassword.invalid">
+        Please enter a valid password
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="warn" type="submit" [disabled]="f.invalid">
+      signup
+    </button>
+  </form>
+</mat-card>
