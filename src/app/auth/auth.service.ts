@@ -15,6 +15,7 @@ const BACKEND_URL = environment.apiUrl + "/";
 })
 export class AuthService {
   isAuthenticated: boolean = false;
+  username: string;
   private authStatusListner = new Subject<boolean>();
   constructor(
     private http: HttpClient,
@@ -32,6 +33,11 @@ export class AuthService {
     return this.authStatusListner.asObservable();
   }
 
+  //getting username
+  getUsername() {
+    return this.username;
+  }
+
   //creating new user
   signUp(username: string, email: string, password: string) {
     const authData: UserSpResp = {
@@ -39,20 +45,26 @@ export class AuthService {
       email: email,
       password: password,
     };
-    this.http.post(BACKEND_URL + "signup", authData).subscribe(
-      (result) => {
-        this.isAuthenticated = true;
-        this.authStatusListner.next(true);
-        this.toastr.success("successfully created!");
-        this.router.navigate(["/"]);
-      },
-      (error) => {
-        this.authStatusListner.next(false);
-        this.isAuthenticated = false;
-        this.toastr.error("oop's username and email should be unique!");
-        this.router.navigate(["/signup"]);
-      }
-    );
+    this.http
+      .post<{ message: string; username: string; userId: string }>(
+        BACKEND_URL + "signup",
+        authData
+      )
+      .subscribe(
+        (result) => {
+          this.isAuthenticated = true;
+          this.username = result.username;
+          this.authStatusListner.next(true);
+          this.toastr.success("successfully created!");
+          this.router.navigate(["/"]);
+        },
+        (error) => {
+          this.authStatusListner.next(false);
+          this.isAuthenticated = false;
+          this.toastr.error("oop's username and email should be unique!");
+          this.router.navigate(["/signup"]);
+        }
+      );
   }
 
   //logiing user
@@ -66,6 +78,7 @@ export class AuthService {
       )
       .subscribe(
         (result) => {
+          this.username = result.username;
           this.snackBar.open(`Welcome Back ${result.username}`, "success", {
             duration: 2000,
           });
