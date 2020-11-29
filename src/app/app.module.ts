@@ -6,25 +6,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
-
-//matrial import
-import {
-  MatInputModule,
-  MatCardModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatExpansionModule,
-  MatProgressSpinnerModule,
-  MatPaginatorModule,
-  MatSnackBarModule,
-} from "@angular/material";
+import { PostsModule } from "./posts/posts.module";
+import { FormsModule } from "@angular/forms";
 
 //all components
 import { AppRoutingModule } from "./app-routing.module";
 import { HeaderComponent } from "./header/header/header.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
-import { FormsModule } from "@angular/forms";
+import { AppMaterialModule } from "./app-material.module";
 
 @NgModule({
   declarations: [
@@ -39,15 +29,9 @@ import { FormsModule } from "@angular/forms";
     BrowserAnimationsModule,
     FormsModule,
     ToastrModule.forRoot(),
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
     HttpClientModule,
+    PostsModule,
+    AppMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
