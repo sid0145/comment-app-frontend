@@ -3,10 +3,6 @@
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
-      <a> {{ username }}</a>
-    </li>
-
-    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/post-create" routerLinkActive="mat-primary"
         >+New Post</a
       >

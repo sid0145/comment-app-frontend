@@ -15,11 +15,12 @@ export class PostCreateComponent implements OnInit {
     private authService: AuthService,
     private postService: PostService,
     private router: Router
-  ) {
-    this.username = authService.getUsername();
-  }
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.username = this.authService.getUsername();
+    console.log(this.username);
+  }
 
   onAddPost(form: NgForm) {
     if (form.invalid) {

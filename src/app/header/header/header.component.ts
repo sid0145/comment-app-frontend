@@ -10,7 +10,6 @@ import { AuthService } from "src/app/auth/auth.service";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated: boolean;
-  username: string;
   private userAuthSubs: Subscription;
 
   constructor(private authService: AuthService) {}
@@ -21,8 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getAuthStatusListner()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-        this.username = this.authService.getUsername();
-        console.log(this.userIsAuthenticated);
       });
   }
 

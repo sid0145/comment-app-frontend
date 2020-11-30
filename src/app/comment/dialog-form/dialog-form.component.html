@@ -1,0 +1,31 @@
+<div mat-dialog-content>
+  <form class="form-container" [formGroup]="commentForm">
+    <mat-form-field color="accent">
+      <textarea
+        matInput
+        formControlName="comment"
+        placeholder="Add your comment"
+        rows="4"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          commentForm.controls.comment.invalid &&
+          commentForm.controls.comment.touched
+        "
+      >
+        comment is required</mat-error
+      >
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    [disabled]="!commentForm.valid"
+    color="accent"
+    [mat-dialog-close]="commentForm.value"
+  >
+    post
+  </button>
+  <button mat-button (click)="onNoClick()">cancel</button>
+</div>
