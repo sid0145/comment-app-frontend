@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
 import { PostService } from "./post.service";
 
 import { Post } from "./post.model";
@@ -11,13 +10,20 @@ import { Router } from "@angular/router";
   styleUrls: ["./posts.component.css"],
 })
 export class PostsComponent implements OnInit {
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private router: Router) {}
 
   posts = [];
 
   ngOnInit() {
-    this.postService.getPosts().subscribe((result: { posts: Post[] }) => {
-      this.posts = result.posts;
+    this.postService.getPosts().subscribe((result: { posts: any }) => {
+      for (var i = 0; i < result.posts.length; i++) {
+        this.posts.unshift(result.posts[i]);
+      }
     });
+  }
+
+  openComment(id) {
+    console.log(id);
+    this.router.navigate(["comments", id]);
   }
 }

@@ -1,13 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //all modules
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
-import { PostsModule } from "./posts/posts.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 //all components
 import { AppRoutingModule } from "./app-routing.module";
@@ -15,6 +14,11 @@ import { HeaderComponent } from "./header/header/header.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { AppMaterialModule } from "./app-material.module";
+import { AuthInterceptor } from "./auth/auth-intercepor";
+import { PostsComponent } from "./posts/posts.component";
+import { PostCreateComponent } from "./posts/post-create/post-create.component";
+import { CommentComponent } from "./comment/comment.component";
+import { DialogFormComponent } from "./comment/dialog-form/dialog-form.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { AppMaterialModule } from "./app-material.module";
     HeaderComponent,
     LoginComponent,
     SignupComponent,
+    PostsComponent,
+    PostCreateComponent,
+    CommentComponent,
+    DialogFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,10 +38,13 @@ import { AppMaterialModule } from "./app-material.module";
     FormsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
-    PostsModule,
     AppMaterialModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  entryComponents: [DialogFormComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

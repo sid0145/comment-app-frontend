@@ -13,8 +13,17 @@
     <div class="right">
       <p>submitted by: {{ post.username }}</p>
       <mat-card-actions>
-        <button mat-raised-button color="primary">(20)Comments</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openComment(post._id)"
+        >
+          (20)Comments
+        </button>
       </mat-card-actions>
     </div>
+  </mat-card>
+  <mat-card *ngIf="posts.length == 0">
+    <h1>no post added yet!</h1>
   </mat-card>
 </div>

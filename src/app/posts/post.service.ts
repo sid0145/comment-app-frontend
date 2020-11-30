@@ -7,14 +7,15 @@ import { Router } from "@angular/router";
 
 const BACKEND_URL = environment.apiUrl;
 
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class PostService {
   username: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   //create posts
-
   createPost(username: string, title: string, content: string) {
     const data = { username: username, title: title, content: content };
     this.http.post(`${BACKEND_URL}/create-post`, data).subscribe((result) => {
@@ -23,8 +24,12 @@ export class PostService {
   }
 
   //getting posts
-
   getPosts() {
     return this.http.get(`${BACKEND_URL}/posts`);
+  }
+
+  //get post by id
+  getPost(id) {
+    return this.http.get(`${BACKEND_URL}/post/${id}`);
   }
 }
