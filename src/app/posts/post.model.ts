@@ -12,7 +12,7 @@ export interface getPostsResp {
 }
 
 export interface Post {
-  id: string;
+  _id: string;
   title: string;
   username: string;
   content: string;

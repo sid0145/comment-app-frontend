@@ -1,22 +1,36 @@
-<div class="main">
-  <mat-card>
-    <div class="left">
-      <mat-card-header>
-        <mat-card-title>{{ title }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{ content }}
-        </p>
-      </mat-card-content>
-    </div>
-    <div class="right">
-      <p>submitted by: {{ username }}</p>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="openDialog(userId)">
-          reply
-        </button>
-      </mat-card-actions>
-    </div>
-  </mat-card>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ title }}</h5>
+    <p class="card-text">
+      {{ content }}
+    </p>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      reply
+    </button>
+  </div>
 </div>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-card class="main">
+  <p>{{ commentCount }} comments</p>
+
+  <mat-card *ngFor="let c of comments">
+    <mat-card-content>
+      <p>{{ c.username }} said: {{ c.comment }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-class" *ngIf="userId === c.userId">
+        <button mat-raised-button color="accent" (click)="openDialog(c._id)">
+          edit
+        </button>
+        <button mat-raised-button color="warn" (click)="delteHandler(c._id)">
+          delete
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</mat-card>
+
+<mat-card *ngIf="commentCount === 0">
+  <h1>no comments here</h1>
+</mat-card>
