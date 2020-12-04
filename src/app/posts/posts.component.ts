@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { PostService } from "./post.service";
 
 import { Router } from "@angular/router";
+import { CommentService } from "../comment/comment.service";
 
 @Component({
   selector: "app-posts",
@@ -9,7 +10,11 @@ import { Router } from "@angular/router";
   styleUrls: ["./posts.component.css"],
 })
 export class PostsComponent implements OnInit {
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(
+    private postService: PostService,
+    private router: Router,
+    private commentService: CommentService
+  ) {}
 
   posts = [];
   isLoading: boolean = false;

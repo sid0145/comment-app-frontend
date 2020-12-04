@@ -28,6 +28,43 @@
         </button>
       </div>
     </mat-card-actions>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        (keyup)="onKey($event, c._id)"
+        placeholder="reply here to {{ c.username }}"
+        autocomplete="off"
+        minlength="1"
+      />
+    </mat-form-field>
+    <!-- ---------------- -->
+    <div *ngFor="let cs of allComments">
+      <mat-card *ngIf="cs.commentId === c._id">
+        <mat-card-content>
+          <p>{{ cs.username }} replied to {{ c.username }}: {{ cs.comment }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="button-class" *ngIf="userId === cs.userId">
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="openDialog(cs._id, c._id)"
+            >
+              edit
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="deleteHandler(cs._id)"
+            >
+              delete
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <!----------------------->
   </mat-card>
 </mat-card>
 

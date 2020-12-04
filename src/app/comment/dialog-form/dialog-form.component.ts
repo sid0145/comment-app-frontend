@@ -21,10 +21,9 @@ export class DialogFormComponent implements OnInit {
 
   ngOnInit() {
     this.initilizeForm();
-    console.log(this.data);
-    if (this.data && this.data.id) {
-      console.log(this.data);
-      console.log(this.data.id);
+    if (this.data && this.data.id && this.data.commentId) {
+      this.setNestedCommentToForm(this.data.id);
+    } else if (this.data && this.data.id) {
       this.setCommentToForm(this.data.id);
     }
   }
@@ -40,6 +39,7 @@ export class DialogFormComponent implements OnInit {
     });
   }
 
+  //set form for comment here
   private setCommentToForm(id: string) {
     this.commentService.getCommentById(id).subscribe(
       (data) => {
@@ -51,17 +51,17 @@ export class DialogFormComponent implements OnInit {
     );
   }
 
-  //updating client
-  // private updateClient(id: string) {
-  //   this.commentService.getCommentById(id).subscribe(
-  //     (data) => {
-  //       this.commentForm.patchValue(data);
-  //     },
-  //     (err) => {
-  //       this.snackBar.open("error occured!", "error", {
-  //         duration: 2000,
-  //       });
-  //     }
-  //   );
-  // }
+  //set form for nested comment here
+  private setNestedCommentToForm(id: string) {
+    this.commentService.getNestedCommentById(id).subscribe(
+      (data) => {
+        this.commentForm.patchValue(data);
+      },
+      (err) => {
+        this.snackBar.open(err, "error", {
+          duration: 2000,
+        });
+      }
+    );
+  }
 }
