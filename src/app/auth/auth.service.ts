@@ -101,7 +101,7 @@ export class AuthService {
           if (token) {
             const expiresInDuration = result.expiresIn;
             this.setAuthTimer(expiresInDuration);
-            this.snackBar.open(`Welcome Back ${result.username}`, "success", {
+            this.snackBar.open(`Welcome ${result.username}`, "success", {
               duration: 2000,
             });
             this.toastr.success("login success", "success", {
@@ -124,9 +124,13 @@ export class AuthService {
           }
         },
         (err) => {
-          this.toastr.error("login faild", "error", {
-            timeOut: 2000,
-          });
+          this.toastr.error(
+            "please provide a valid username or password",
+            "error",
+            {
+              timeOut: 2000,
+            }
+          );
           this.authStatusListner.next(false);
           this.isAuthenticated = false;
           this.router.navigate(["/login"]);

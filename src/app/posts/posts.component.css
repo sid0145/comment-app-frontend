@@ -3,6 +3,7 @@
 }
 mat-card-content p {
   margin-left: 20px;
+  text-overflow: ellipsis;
 }
 p {
   margin-right: 5px;
@@ -10,7 +11,7 @@ p {
 mat-card {
   padding: 0;
   margin-top: 5px;
-  height: 100px;
+  height: 120px;
   border: 1px solid black;
   display: flex;
   flex-direction: row;
@@ -25,10 +26,29 @@ mat-card-actions {
   padding: 0;
 }
 button {
-  border: 1px solid black;
-  padding: 0px;
-  right: 0px;
+  padding: 0px 5px;
 }
 mat-spinner {
   margin: auto;
+}
+@media (max-width: 500px) {
+  mat-card {
+    flex-direction: column;
+    height: auto;
+  }
+  mat-card-title {
+    width: 200px;
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+p {
+  width: 200px;
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
